@@ -1,4 +1,3 @@
-#include "pch.h"
 #include "Kicker.h"
 
 #include <cmath>

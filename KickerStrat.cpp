@@ -1,4 +1,3 @@
-#include "pch.h"
 #include "KickerStrat.h"
 
 #include <vector>
