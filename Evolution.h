@@ -1,6 +1,8 @@
 #pragma once
 
 #include "EvolutionUtil.h"
+#include <iostream>
+#include <algorithm>
 
 // This library encapsulates evolutional learning through genetic algorithms 
 // The library is header only and easy to use. 

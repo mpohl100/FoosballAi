@@ -1,6 +1,7 @@
 #pragma once
 
 #include <map>
+#include <vector>
 
 template<class Chromosome, class Challenge>
 std::multimap<double, const Chromosome*>
