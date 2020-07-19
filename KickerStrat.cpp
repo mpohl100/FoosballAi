@@ -3,8 +3,8 @@
 #include <vector>
 #include <iostream>
 #include <iomanip>
-#include <windows.h>
-
+#include <thread>         // std::this_thread::sleep_for
+#include <chrono>         // std::chrono::seconds
 
 int fetchPosition(CumVector<int> const& vec)
 {
@@ -173,7 +173,7 @@ void DefensiveStrategy::stream(std::ostream& os, int intervals, double accuracy)
 		std::cout << "Accuracy: " << std::fixed << std::setprecision(2) << accuracy * 100 
 			<< " % Velocity: " << gene_.movesPerSecond << " moves/sec\n";
 		os << gene_.teams[pos] << std::endl;
-		Sleep(250);
+		std::this_thread::sleep_for (std::chrono::milliseconds(250));
 	}
 }
 
@@ -209,7 +209,8 @@ const Shot& OffensiveStrategy::chooseShot(DefensiveStrategy const& defense, int 
 	double len = GOAL_DIST - Ball::perimeter(0);
 	if (chooseStrat < gene_.shootOpen) {
 		std::vector<Gap> gaps = team.getRelevantGaps(gene_.shots);
-		std::sort(gaps.begin(), gaps.end(), [](auto l, auto r) {return l.end - l.start > r.end - r.start; });
+		std::sort(gaps.begin(), gaps.end(), 
+				  [](Gap l, Gap r) {return l.end - l.start > r.end - r.start; });
 		int randGapIdx = fetchPosition(gene_.shootIfOpen);
 		if (randGapIdx >= gaps.size())
 			randGapIdx = 0;
@@ -278,7 +279,7 @@ void OffensiveStrategy::stream(std::ostream& os, int intervals, double accuracy)
 	{
 		std::cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
 		std::cout << "Accuracy: " << std::fixed << std::setprecision(2) << accuracy * 100;
-		Sleep(250);
+		std::this_thread::sleep_for (std::chrono::milliseconds(250));
 	}
 
 }

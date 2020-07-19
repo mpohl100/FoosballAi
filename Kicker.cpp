@@ -79,12 +79,12 @@ bool doIntersect(Point p1, Point q1, Point p2, Point q2)
 
 Point Point::operator+(double d)
 {
-	return { x + d, y + d };
+	return Point( x + d, y + d );
 }
 
 Point Point::operator-(double d)
 {
-	return { x - d, y - d };
+	return Point( x - d, y - d );
 }
 
 bool operator==(Point const& l, Point const& r)
@@ -136,7 +136,8 @@ void ConstrainedPosition::move(double x)
 }
 
 Ball::Ball(double x, double y)
-	: x_({ FIELD_MIN_X, FIELD_MAX_X }), y_({ FIELD_MIN_Y, FIELD_MAX_Y })
+	: x_(ConstrainedPosition( FIELD_MIN_X, FIELD_MAX_X ))
+	, y_(ConstrainedPosition( FIELD_MIN_Y, FIELD_MAX_Y ))
 {
 	x_.move(x);
 	y_.move(y-FIELD_MIN_Y);
@@ -165,8 +166,8 @@ Figure::Figure(ConstrainedPosition y, ConstrainedPosition x )
 
 int Figure::touchesShot(Shot shot, double x) const
 {
-	Point p1{ x + x_.pos(), y_.pos() };
-	Point p2{ x + x_.pos(), y_.pos() + length_ };
+	Point p1( x + x_.pos(), y_.pos() );
+	Point p2( x + x_.pos(), y_.pos() + length_ );
 	double halfBall = Ball::perimeter(x_.pos());
 	if (doIntersect(p1, p2, shot.start_, shot.end_)) return 1;
 	else if (doIntersect(p1, p2, shot.start_ - halfBall, shot.end_ - halfBall)) return 1;
@@ -189,7 +190,7 @@ double Figure::x() const { return x_.pos(); }
 
 std::pair<double, double> Figure::range_y() const
 {
-	return { y_.min(), y_.max() };
+	return std::pair<double, double>( y_.min(), y_.max() );
 }
 
 Rod::Rod(std::vector<Figure> figures, double x)
@@ -318,7 +319,7 @@ std::vector<Gap> shrinkGaps(std::vector<Gap> gaps, Gap range)
 
 std::vector<Gap> makeOnGoal(std::vector<Gap> gaps)
 {
-	return shrinkGaps(gaps, { 0, GOAL_DIST });
+	return shrinkGaps(gaps, Gap( 0, GOAL_DIST ));
 }
 
 std::vector<Gap> Team::getRelevantGaps(std::vector<Shot> const& shots) const
@@ -350,7 +351,7 @@ std::vector<Gap> Team::getRelevantGaps(std::vector<Shot> const& shots) const
 		ret = makeOnGoal(ret);
 	}
 	else
-		ret = shrinkGaps(ret, { rect.first.y, rect.second.y });
+		ret = shrinkGaps(ret, Gap( rect.first.y, rect.second.y ));
 	return ret;
 }
 
@@ -364,7 +365,7 @@ std::vector<Gap> Team::getRelevantFigures(std::vector<Shot> const& shots) const
 		return l.y() < r.y();
 	});
 	for (auto f : figures)
-		ret.push_back({ f.y(), f.y() + FIGURE_LEN });
+		ret.push_back(Gap( f.y(), f.y() + FIGURE_LEN ));
 	return ret;
 }
 

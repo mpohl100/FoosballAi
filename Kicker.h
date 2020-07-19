@@ -193,6 +193,12 @@ struct Midfield {
 struct Gap {
 	double start = 0;
 	double end = 0;
+	Gap(double s, double e) : start(s) , end(e) {}
+	Gap() = default;
+	Gap(Gap const&) = default;
+	Gap& operator=(Gap const&) = default;
+	Gap(Gap&&) = default;
+	Gap& operator=(Gap&&) = default;
 };
 
 class Team {
