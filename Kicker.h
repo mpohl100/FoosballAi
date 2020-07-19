@@ -17,6 +17,13 @@ struct Point
 {
 	double x = 0.0;
 	double y = 0.0;
+	
+	Point(double xx, double yy ) : x(xx) , y(yy) {}
+	Point() = default;
+	Point(Point const&) = default;
+	Point& operator=(Point const&) = default;
+	Point(Point&&) = default;
+	Point& operator=(Point&&) = default;
 
 	Point operator+(double d);
 	Point operator-(double d);
@@ -86,10 +93,10 @@ bool operator<(Ball const& l, Ball const& r);
 class Shot {
 public:
 	Shot(Ball start, Ball end)
-		: start_({ start.x(), start.y() }), end_({ end.x(), end.y() })
+		: start_(Point( start.x(), start.y() ) ), end_(Point( end.x(), end.y() ) )
 	{}
-	Point start_{ 0,0 };
-	Point end_{ 0,0 };
+	Point start_ = Point( 0,0 );
+	Point end_ = Point( 0,0 );
 };
 
 class Figure {

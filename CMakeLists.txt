@@ -12,7 +12,7 @@ endif ()
 include(CTest)
 enable_testing()
 
-add_executable(foosballAi main.cpp)
+add_executable(foosballAi Kicker.cpp KickerStrat.cpp main.cpp)
 
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})
 set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})

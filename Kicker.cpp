@@ -5,6 +5,7 @@
 #include <string>
 #include <array>
 #include <numeric>
+#include <algorithm>
 
 int fetchRand(int range_from, int range_to)
 {
