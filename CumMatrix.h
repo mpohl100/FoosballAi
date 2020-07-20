@@ -2,6 +2,7 @@
 
 #include <vector>
 #include <numeric>
+#include <stdexcept>
 
 template<class T>
 class CumVector {
@@ -25,7 +26,7 @@ public:
 	{
 		if(index < val_.size())
 			return val_[index];
-		throw std::exception("CumVector index out of bounds in []");
+		throw std::runtime_error("CumVector index out of bounds in []");
 	}
 
 	void set(size_t index, T const& val)
@@ -40,7 +41,7 @@ public:
 				val_.push_back(val);
 		}
 		else
-			throw std::exception("CumVector index out of bounds in set");
+			throw std::runtime_error("CumVector index out of bounds in set");
 	}
 
 	T cum() const { return cum_; }
@@ -74,7 +75,7 @@ public:
 	{
 		if (index < val_.size())
 			return val_[index];
-		throw std::exception("CumMatrix index out of bounds in []");
+		throw std::runtime_error("CumMatrix index out of bounds in []");
 	}
 
 	void set(size_t row, size_t col, T const& val)
@@ -85,7 +86,7 @@ public:
 			val_[row].set(col, val);
 		}
 		else
-			throw std::exception("CumMatrix index out of bounds in set");
+			throw std::runtime_error("CumMatrix index out of bounds in set");
 	}
 
 	void set(size_t row, CumVector<T> const& val)
@@ -98,7 +99,7 @@ public:
 			val_[row] = val;
 		}
 		else
-			throw std::exception("CumMatrix index out of bounds in set");
+			throw std::runtime_error("CumMatrix index out of bounds in set");
 	}
 
 	const CumVector<T>& cum() const { return cum_; }
@@ -107,7 +108,7 @@ public:
 	{
 		if (index < val_.size())
 			return cum_[index];
-		throw std::exception("CumMatrix out of bounds in cum(size_t)");
+		throw std::runtime_error("CumMatrix out of bounds in cum(size_t)");
 	}
 	
 	size_t size() const { return val_.size(); }
