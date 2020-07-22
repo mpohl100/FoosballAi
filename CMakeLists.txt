@@ -6,7 +6,7 @@ if( NOT CMAKE_BUILD_TYPE )
      set( CMAKE_BUILD_TYPE Release )
 endif()
 
-set( CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra")
+#set( CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra")
 set( CMAKE_CXX_FLAGS_RELEASE "-O2")
 set( CMAKE_CXX_FLAGS_DEBUG "-g") 
 
@@ -18,9 +18,10 @@ else ()
     set (CMAKE_CXX_STANDARD 11)
 endif ()
 
-
 include(CTest)
 enable_testing()
+
+include_directories(include)
 
 add_library(kicker SHARED Kicker.cpp)
 add_executable(foosballAi KickerStrat.cpp main.cpp)
