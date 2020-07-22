@@ -14,7 +14,7 @@ int fetchPosition(CumVector<int> const& vec)
 	int maxI = 0;
 	int maxN = 0;
 	int currProb = 0;
-	for (int j = 0; j < vec.size(); j++)
+	for (int j = 0; j < int(vec.size()); j++)
 	{
 		int prob = vec[j] + currProb;
 		if (prob >= randNb && prob < candidateN) {
@@ -46,7 +46,7 @@ double play(OffensiveStrategy const& offensive, DefensiveStrategy const& defensi
 	{
 		int pos = fetchPosition(gene.transition.cum());
 		int randIdx = int(double(distr(rand_dev)) / range_to * offensive.gene_.shots.size());
-		if (randIdx >= offensive.gene_.shots.size())
+		if (randIdx >= int(offensive.gene_.shots.size()))
 			randIdx = offensive.gene_.shots.size() - 1;
 		Shot const& shot = offensive.chooseShot(defensive, pos);
 		pos = gene.trans(pos);
@@ -95,11 +95,11 @@ void normalize(std::vector<int>& row, int targetSum)
 
 void generateRandomColThresholds(CumMatrix<int>& mat, int col)
 {
-	assert(col < mat.size());
-	for (int i = 0; i < mat.size(); ++i)
+	assert(col < int(mat.size()));
+	for (size_t i = 0; i < mat.size(); ++i)
 	{
 		int randProb = fetchRand(0, mat[i].cum());
-		for (int j = 0; j < mat.size(); j++)
+		for (size_t j = 0; j < mat.size(); j++)
 			mat.set(i, j, randProb);
 	}
 }
@@ -110,16 +110,16 @@ DefensiveStrategy::DefensiveStrategy(std::vector<Team> teams, bool rand)
 	int N = gene_.teams.size();
 	gene_.transition = CumMatrix<int>(N);
 	if (rand) {
-		for (int i = 0; i < teams.size(); ++i)
+		for (int i = 0; i < int(teams.size()); ++i)
 			gene_.transition.set(i, generateRandomRowThresholds(100000, teams.size()));
 		gene_.movesPerSecond = fetchRand<1, 5>();
 	}
 	else
 	{
 		gene_.movesPerSecond = 4;
-		for (int i = 0; i < teams.size(); ++i) {
+		for (size_t i = 0; i < teams.size(); ++i) {
 			std::vector<int> count;
-			for (int i = 0; i < teams.size(); ++i)
+			for (size_t i = 0; i < teams.size(); ++i)
 				count.push_back(100000 / teams.size());
 			//normalize(count, 100000);
 			gene_.transition.set(i, count);
@@ -137,11 +137,11 @@ void DefensiveStrategy::crossover(DefensiveStrategy const & other)
 	int coinflip = fetchRand<0, 1>();
 	if (coinflip == 0)
 	{
-		for (int i = gene_.teams.size() / 2; i < gene_.teams.size(); ++i)
+		for (size_t i = gene_.teams.size() / 2; i < gene_.teams.size(); ++i)
 			gene_.transition.set(i, other.gene_.transition[i]);
 	}
 	else {
-		for (int i = 0; i <= gene_.teams.size() / 2; ++i)
+		for (size_t i = 0; i <= gene_.teams.size() / 2; ++i)
 			gene_.transition.set(i, other.gene_.transition[i]);
 	}
 }
@@ -206,13 +206,12 @@ const Shot& OffensiveStrategy::chooseShot(DefensiveStrategy const& defense, int 
 {
 	auto& team = defense.gene_.teams[pos];
 	int chooseStrat = fetchRand<0, 100>();
-	double len = GOAL_DIST - Ball::perimeter(0);
 	if (chooseStrat < gene_.shootOpen) {
 		std::vector<Gap> gaps = team.getRelevantGaps(gene_.shots);
 		std::sort(gaps.begin(), gaps.end(), 
 				  [](Gap l, Gap r) {return l.end - l.start > r.end - r.start; });
 		int randGapIdx = fetchPosition(gene_.shootIfOpen);
-		if (randGapIdx >= gaps.size())
+		if (randGapIdx >= int(gaps.size()))
 			randGapIdx = 0;
 		Gap randGap = gaps[randGapIdx];
 		std::vector<int> indeces = getRandomIndeces(gene_.shots.size());
@@ -228,9 +227,8 @@ const Shot& OffensiveStrategy::chooseShot(DefensiveStrategy const& defense, int 
 	else {
 		std::vector<Gap> gaps = team.getRelevantFigures(gene_.shots);
 		std::vector<int> indeces = getRandomIndeces(gene_.shots.size());
-		int halfBall = Ball::perimeter(0);
 		int randGapIdx = fetchPosition(gene_.shootIfClosed);
-		if (randGapIdx >= gaps.size())
+		if (randGapIdx >= int(gaps.size()))
 			randGapIdx = 0;
 		Gap randGap = gaps[randGapIdx];
 		for (int i : indeces) {
@@ -274,11 +272,10 @@ double OffensiveStrategy::score(DefensiveStrategy const& chromosome) const
 
 void OffensiveStrategy::stream(std::ostream& os, int intervals, double accuracy)
 {
-	int pos = 0;
 	for (int i = 0; i < intervals; ++i)
 	{
-		std::cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
-		std::cout << "Accuracy: " << std::fixed << std::setprecision(2) << accuracy * 100;
+		os << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
+		os << "Accuracy: " << std::fixed << std::setprecision(2) << accuracy * 100;
 		std::this_thread::sleep_for (std::chrono::milliseconds(250));
 	}
 

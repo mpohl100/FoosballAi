@@ -22,7 +22,7 @@ selectMatingPool(std::multimap<double, const Chromosome*> const& fitness, int se
 	for (auto it = fitness.rbegin(); it != fitness.rend(); ++it)
 	{
 		ret.push_back(it->second);
-		if (++i > fitness.size() / sep - 1)
+		if (++i > int(fitness.size()) / sep - 1)
 			break;
 	}
 	return ret;

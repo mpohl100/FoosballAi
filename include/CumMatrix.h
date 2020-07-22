@@ -94,7 +94,7 @@ public:
 		if (row <= val_.size()) {
 			if (row == val_.size())
 				val_.push_back(val);
-			for (int i = 0; i < val.size(); ++i) 
+			for (size_t i = 0; i < val.size(); ++i) 
 				cum_.set(i, val[i] - val_[row][i]);
 			val_[row] = val;
 		}
