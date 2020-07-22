@@ -22,7 +22,9 @@ endif ()
 include(CTest)
 enable_testing()
 
-add_executable(foosballAi Kicker.cpp KickerStrat.cpp main.cpp)
+add_library(kicker SHARED Kicker.cpp)
+add_executable(foosballAi KickerStrat.cpp main.cpp)
+target_link_libraries(foosballAi kicker)
 
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})
 set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})

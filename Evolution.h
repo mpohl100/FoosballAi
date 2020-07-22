@@ -56,7 +56,8 @@ evolution(
 			return ret;
 		}
 		// sort the chromosomes according to their fitness
-		typename std::vector<Chromosome>::iterator sep = std::stable_partition(candidates.begin(), candidates.end(), 
+		typename std::vector<Chromosome>::iterator sep = std::stable_partition(
+			candidates.begin(), candidates.end(), 
 			[&winners](Chromosome const& ch) {
 			return std::find_if(winners.begin(), winners.end(),
 				[&ch](const Chromosome* address) { return &ch == address; }) != winners.end();
