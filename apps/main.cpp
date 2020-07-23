@@ -1,6 +1,5 @@
 #include "Evolution.h"
 #include "KickerStrat.h"
-#include "Kicker.h"
 
 #include <algorithm>
 #include <array>
