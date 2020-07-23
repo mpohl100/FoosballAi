@@ -66,23 +66,17 @@ int DefensiveData::trans(int i) const
 
 CumVector<int> generateRandomRowThresholds(int sum, int positions)
 {
-	CumVector<int> ret(positions);
-	std::vector<int> indeces;
-	indeces.reserve(positions);
-	for (int i = 0; i < positions; ++i)
-		indeces.push_back(i);
-	std::random_shuffle(indeces.begin(), indeces.end());
-	int currMin = 0;
-	for (int i : indeces)
+	std::vector<int> randomIntegers;
+	int currentMax = sum;
+	for(int i = 0; i < positions; i++)
 	{
-		if (currMin < sum) {
-			ret.set(i, fetchRand(0, sum-currMin));
-			currMin = ret[i];
-		}
-		else
-			ret.set(i, currMin);
+		int randInt = fetchRand(0, currentMax);
+		randomIntegers.push_back(randInt);
+		currentMax -= randInt;
+		if(currentMax <= 0) currentMax = 1;
 	}
-	return ret;
+	std::random_shuffle(randomIntegers.begin(), randomIntegers.end());
+	return CumVector<int>(randomIntegers);
 }
 
 void normalize(std::vector<int>& row, int targetSum)
