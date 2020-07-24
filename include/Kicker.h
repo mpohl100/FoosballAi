@@ -4,6 +4,7 @@
 #include "ConstrainedPosition.h"
 #include "Ball.h"
 #include "Figure.h"
+#include "Rod.h"
 #include <random>
 
 template<int range_from, int range_to>
@@ -16,36 +17,6 @@ int fetchRand()
 }
 
 int fetchRand(int range_from, int range_to);
-
-
-
-
-
-
-class Rod {
-public:
-	Rod(std::vector<Figure> figures, double x);
-
-	Rod() = default;
-	Rod(Rod const&) = default;
-	Rod& operator=(Rod const&) = default;
-	Rod(Rod&&) = default;
-	Rod& operator=(Rod&&) = default;
-
-	bool touchesShot(Shot const& shot) const;
-
-	void move_y(double y);
-	void move_y_to(double y);
-	void move_rod(double x);
-	double y() const;
-	double x() const;
-	std::pair<double, double> range_y() const;
-private:
-	friend std::ostream& operator<<(std::ostream& os, Rod const& rod);
-	friend class Team;
-	std::vector<Figure> figures_;
-	double x_;
-};
 
 struct Goalie {
 	Goalie() = default;
@@ -129,8 +100,6 @@ public:
 	Team t2{ true };
 	Ball ball;
 };
-
-std::ostream& operator<<(std::ostream& os, Rod const& rod);
 
 std::ostream& operator<<(std::ostream& os, Team const& team);
 
