@@ -1,7 +1,22 @@
 
-add_library(kicker SHARED Kicker.cpp Point.cpp ConstrainedPosition.cpp Ball.cpp Figure.cpp Rod.cpp)
+set(KICKER_SOURCES
+        Kicker.cpp 
+        Point.cpp 
+        ConstrainedPosition.cpp 
+        Ball.cpp 
+        Figure.cpp 
+        Rod.cpp
+)
+
+add_library(kicker SHARED ${KICKER_SOURCES})
 target_include_directories(kicker PUBLIC ../include)
 
-add_library(strat SHARED KickerStrat.cpp DefensiveStrat.cpp StratCommon.cpp)
+set(STRAT_SOURCES
+        OffensiveStrat.cpp
+        DefensiveStrat.cpp
+        StratCommon.cpp
+)
+
+add_library(strat SHARED ${STRAT_SOURCES})
 target_include_directories(strat PUBLIC ../include)
 target_link_libraries(strat kicker)

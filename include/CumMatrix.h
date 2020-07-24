@@ -11,7 +11,7 @@ class CumVector {
 public:
 	CumVector(std::vector<T> values)
 		: val_(std::move(values))
-		, cum_(std::accumulate(values.begin(), values.end(), T{}))
+		, cum_(std::accumulate(val_.begin(), val_.end(), T{}))
 	{}
 	CumVector(size_t size)
 		: val_(std::vector<T>(size))

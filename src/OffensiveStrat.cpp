@@ -1,7 +1,7 @@
-#include "KickerStrat.h"
+#include "OffensiveStrat.h"
 #include "StratCommon.h"
 #include "DefensiveStrat.h"
-
+#include <algorithm>
 #include <vector>
 #include <iostream>
 #include <iomanip>

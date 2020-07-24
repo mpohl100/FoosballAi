@@ -1,7 +1,9 @@
 #include "StratCommon.h"
-#include "KickerStrat.h"
+#include "OffensiveStrat.h"
 #include "DefensiveStrat.h"
 #include "Kicker.h"
+
+#include <algorithm>
 
 int fetchPosition(CumVector<int> const& vec)
 {

@@ -1,5 +1,5 @@
 #include "DefensiveStrat.h"
-#include "KickerStrat.h"
+#include "OffensiveStrat.h"
 #include "StratCommon.h"
 
 #include <iomanip>
@@ -79,11 +79,12 @@ void DefensiveStrategy::stream(std::ostream& os, int intervals, double accuracy)
 	int pos = 0;
 	for (int i = 0; i < intervals; ++i)
 	{
-		std::cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
+		os << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
 		pos = gene_.trans(pos);
-		std::cout << "Accuracy: " << std::fixed << std::setprecision(2) << accuracy * 100 
-			<< " % Velocity: " << gene_.movesPerSecond << " moves/sec\n";
-		os << gene_.teams[pos] << std::endl;
+        auto& team = gene_.teams[pos];
+		os << "Accuracy: " << std::fixed << std::setprecision(2) << accuracy * 100 
+		    << " % Velocity: " << gene_.movesPerSecond << " moves/sec\n";
+		os << team << std::endl;
 		std::this_thread::sleep_for (std::chrono::milliseconds(250));
 	}
 }

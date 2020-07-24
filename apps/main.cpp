@@ -1,5 +1,5 @@
 #include "Evolution.h"
-#include "KickerStrat.h"
+#include "OffensiveStrat.h"
 #include "DefensiveStrat.h"
 #include "Kicker.h"
 
