@@ -1,3 +1,5 @@
+#pragma once
+
 class ConstrainedPosition {
 public:
 	ConstrainedPosition(double min, double max);

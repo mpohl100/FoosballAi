@@ -1,3 +1,5 @@
+#pragma once
+
 struct Point
 {
 	double x = 0.0;
