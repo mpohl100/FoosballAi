@@ -79,21 +79,6 @@ bool doIntersect(Point p1, Point q1, Point p2, Point q2)
 
 
 
-ConstrainedPosition::ConstrainedPosition(double min, double max)
-	: pos_(min), min_(min), max_(max)
-{}
-
-double ConstrainedPosition::pos() const { return pos_; }
-double ConstrainedPosition::min() const { return min_; }
-double ConstrainedPosition::max() const { return max_; }
-
-
-void ConstrainedPosition::move(double x)
-{
-	pos_ += x;
-	if (pos_ < min_) pos_ = min_;
-	if (pos_ > max_) pos_ = max_;
-}
 
 Ball::Ball(double x, double y)
 	: x_(ConstrainedPosition( FIELD_MIN_X, FIELD_MAX_X ))
