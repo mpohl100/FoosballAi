@@ -6,7 +6,6 @@
 
 struct DefensiveData {
 	std::vector<Team> teams;
-	//std::vector<std::vector<int>> transition;
 	CumMatrix<int> transition;
 	int movesPerSecond = 0;
 	int trans(int i) const;
