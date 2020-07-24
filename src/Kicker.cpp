@@ -77,47 +77,7 @@ bool doIntersect(Point p1, Point q1, Point p2, Point q2)
 
 
 
-Point Point::operator+(double d)
-{
-	return Point( x + d, y + d );
-}
 
-Point Point::operator-(double d)
-{
-	return Point( x - d, y - d );
-}
-
-bool operator==(Point const& l, Point const& r)
-{
-	return l.x == r.x && l.y == r.y;
-}
-
-bool operator!=(Point const& l, Point const& r)
-{
-	return !(l == r);
-}
-
-bool operator<(Point const& l, Point const& r)
-{
-	if (l.x != r.x)
-		return l.x < r.x;
-	return l.y < r.y;
-}
-
-bool operator<=(Point const& l, Point const& r)
-{
-	return !(l > r);
-}
-
-bool operator>(Point const& l, Point const& r)
-{
-	return r < l;
-}
-
-bool operator>=(Point const& l, Point const& r)
-{
-	return !(l < r);
-}
 
 ConstrainedPosition::ConstrainedPosition(double min, double max)
 	: pos_(min), min_(min), max_(max)

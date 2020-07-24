@@ -51,7 +51,11 @@ int main()
 	std::cout << "What do you want to train? The offensive strategy (o) or the defensive strategy(d)?:";
 	char strategy;
 	std::cin >> strategy;
-	std::vector<Shot> shots = readInShots();
+	std::vector<Shot> shots = { Shot(Ball(300,0), Ball(0,0)), 
+								Shot(Ball(300,50), Ball(0,50)),
+								Shot(Ball(300,100), Ball(0,100)),
+								Shot(Ball(300,150), Ball(0,150)),
+								Shot(Ball(300,200), Ball(0,200)),};
 	std::vector<Team> teams = generateRelevantTeams(shots);
 	std::cout << "print generated defense teams(" << teams.size() << ")? (y|n):";
 	char printTeams = 'n';
