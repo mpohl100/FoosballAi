@@ -104,3 +104,5 @@ public:
 std::ostream& operator<<(std::ostream& os, Team const& team);
 
 std::ostream& operator<<(std::ostream& os, FoosballGame const& game);
+
+std::vector<Team> generateRelevantTeams(std::vector<Shot> shots);

@@ -205,3 +205,49 @@ std::ostream& operator<<(std::ostream& os, FoosballGame const& game)
 	}
 	return os;
 }
+
+std::vector<Team> getRelevantTeamPositions(std::pair<Point, Point> area, double dist = 10.0)
+{
+	std::vector<Team> ret;
+	Team dummy;
+	std::vector<std::vector<double>> all_y(4,std::vector<double>(1)); // mindestens ein Eintrag muss vorhanden sein
+	if (area.first.x <= dummy.goalie_.rod.x() && dummy.goalie_.rod.x() <= area.second.x)
+		for (double d = dummy.goalie_.rod.range_y().first; d <= dummy.goalie_.rod.range_y().second; d += dist)
+			all_y[0].push_back(d);
+
+	if (area.first.x <= dummy.defense_.rod.x() && dummy.defense_.rod.x() <= area.second.x)
+		for (double d = dummy.defense_.rod.range_y().first; d <= dummy.defense_.rod.range_y().second; d += dist)
+			all_y[1].push_back(d);
+
+	if (area.first.x <= dummy.midfield_.rod.x() && dummy.midfield_.rod.x() <= area.second.x)
+		for (double d = dummy.midfield_.rod.range_y().first; d <= dummy.midfield_.rod.range_y().second; d += dist)
+			all_y[2].push_back(d);
+
+	if (area.first.x <= dummy.offense_.rod.x() && dummy.offense_.rod.x() <= area.second.x)
+		for (double d = dummy.offense_.rod.range_y().first; d <= dummy.offense_.rod.range_y().second; d += dist)
+			all_y[3].push_back(d);
+
+	for(double goalie : all_y[0])
+		for (double defense : all_y[1])
+			for(double midfield : all_y[2])
+				for (double offense : all_y[3]) {
+					Team t;
+					t.goalie_.rod.move_y_to(goalie);
+					t.defense_.rod.move_y_to(defense);
+					t.midfield_.rod.move_y_to(midfield);
+					t.offense_.rod.move_y_to(offense);
+					ret.push_back(t);
+				}
+	return ret;
+}
+
+
+std::vector<Team> generateRelevantTeams(std::vector<Shot> shots)
+{
+	std::vector<Team> ret;
+	if (shots.empty())
+		return ret;
+	auto rect = getShotsArea(shots);
+	return getRelevantTeamPositions(rect);
+}
+
