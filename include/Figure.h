@@ -3,17 +3,9 @@
 #include "Point.h"
 #include "ConstrainedPosition.h"
 #include "Ball.h"
-
+#include "FoosballMeasures.h"
+#include "Shot.h"
 #include <utility>
-
-class Shot {
-public:
-	Shot(Ball start, Ball end)
-		: start_(Point( start.x(), start.y() ) ), end_(Point( end.x(), end.y() ) )
-	{}
-	Point start_ = Point( 0,0 );
-	Point end_ = Point( 0,0 );
-};
 
 class Figure {
 public:

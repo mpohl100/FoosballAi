@@ -5,6 +5,8 @@
 #include "Ball.h"
 #include "Figure.h"
 #include "Rod.h"
+#include "Shot.h"
+#include "FoosballMeasures.h"
 #include <random>
 
 template<int range_from, int range_to>

@@ -1,11 +1,13 @@
 
 set(KICKER_SOURCES
+        FoosballField.cpp       
         Kicker.cpp 
         Point.cpp 
         ConstrainedPosition.cpp 
         Ball.cpp 
         Figure.cpp 
         Rod.cpp
+        Shot.cpp
 )
 
 add_library(kicker SHARED ${KICKER_SOURCES})
