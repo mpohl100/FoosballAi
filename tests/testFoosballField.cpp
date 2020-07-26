@@ -1,4 +1,5 @@
 #include "FoosballField.h"
+#include "Kicker.h"
 
 int main()
 {
@@ -12,7 +13,7 @@ int main()
         Shot(Ball(600,100), Ball(1200, -240)),
         Shot(Ball(600,100), Ball(0, -240)),
     };
-    FoosballField field(star, {});
+    FoosballField field(star, Team().getRods());
     field.draw(std::cout); 
     return 0;
 }

@@ -48,6 +48,11 @@ std::pair<double, double> Rod::range_y() const
 	return figures_[0].range_y();
 }
 
+std::vector<Figure> const& Rod::getFigures() const
+{
+	return figures_;
+}
+
 std::ostream& operator<<(std::ostream& os, Rod const& rod)
 {
 	int BASE_LEN = 10;

@@ -24,6 +24,7 @@ public:
 	double y() const;
 	double x() const;
 	std::pair<double, double> range_y() const;
+	std::vector<Figure> const& getFigures() const;
 private:
 	friend std::ostream& operator<<(std::ostream& os, Rod const& rod);
 	friend class Team;

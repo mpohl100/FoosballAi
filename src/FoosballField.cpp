@@ -14,7 +14,20 @@ FoosballField::FoosballField(std::vector<Shot> shots,
 
 void FoosballField::drawRod( Rod const& rod)
 {
-
+	std::vector<double> pos;
+	for (const auto& figure : rod.getFigures())
+		pos.push_back(figure.y());
+    for(double& p : pos)
+        p -= FIELD_MIN_Y;
+    int rowIdx = int(rod.x()) / BASE_LEN_ROW;
+    for(double p : pos)
+    {
+        int colIdx = p / BASE_LEN;
+        if(colIdx < field_[rowIdx].size())
+            field_[rowIdx][colIdx] = 'M';
+        if(colIdx+1 < field_[rowIdx].size())
+            field_[rowIdx][colIdx+1] = 'M';
+    }
 }
     
 void FoosballField::drawShot( Shot const& shot)
@@ -76,6 +89,8 @@ void FoosballField::draw(std::ostream& os)
 {
     for(Shot const& s : shots_)
         drawShot(s);
+    for(Rod const& r : rods_)
+        drawRod(r);
     for(std::string const& row : field_)
         os << row << '\n';
 }

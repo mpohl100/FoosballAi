@@ -85,7 +85,7 @@ public:
 	std::vector<Figure> getRelevantFigures(std::pair<Point, Point> rect) const;
 	std::vector<Gap> getRelevantGaps(std::vector<Shot> const& shots) const;
 	std::vector<Gap> getRelevantFigures(std::vector<Shot> const& shots) const;
-
+	std::vector<Rod> getRods() const;
 
 	Goalie goalie_;
 	Defense defense_;

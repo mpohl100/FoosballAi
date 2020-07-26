@@ -82,6 +82,11 @@ std::vector<Figure> Team::getRelevantFigures(std::pair<Point, Point> rect) const
 	return figures;
 }
 
+std::vector<Rod> Team::getRods() const
+{
+	return { goalie_.rod, defense_.rod, midfield_.rod, offense_.rod};
+}
+
 std::vector<Gap> shrinkGaps(std::vector<Gap> gaps, Gap range)
 {
 	std::vector<Gap> ret;

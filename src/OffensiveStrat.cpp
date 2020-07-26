@@ -1,6 +1,8 @@
 #include "OffensiveStrat.h"
 #include "StratCommon.h"
 #include "DefensiveStrat.h"
+#include "FoosballField.h"
+
 #include <algorithm>
 #include <vector>
 #include <iostream>

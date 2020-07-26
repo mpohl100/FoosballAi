@@ -1,6 +1,7 @@
 #include "DefensiveStrat.h"
 #include "OffensiveStrat.h"
 #include "StratCommon.h"
+#include "FoosballField.h"
 
 #include <iomanip>
 #include <thread>         // std::this_thread::sleep_for
@@ -79,12 +80,13 @@ void DefensiveStrategy::stream(std::ostream& os, int intervals, double accuracy)
 	int pos = 0;
 	for (int i = 0; i < intervals; ++i)
 	{
-		os << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
 		pos = gene_.trans(pos);
         auto& team = gene_.teams[pos];
+		FoosballField field({}, team.getRods());
+		os << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
 		os << "Accuracy: " << std::fixed << std::setprecision(2) << accuracy * 100 
 		    << " % Velocity: " << gene_.movesPerSecond << " moves/sec\n";
-		os << team << std::endl;
+		field.draw(os);
 		std::this_thread::sleep_for (std::chrono::milliseconds(250));
 	}
 }
