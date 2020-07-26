@@ -19,10 +19,10 @@ void FoosballField::drawRod( Rod const& rod)
     
 void FoosballField::drawShot( Shot const& shot)
 {
-    int left_x = shot.start_.x;
-    int left_y = shot.start_.y + FIELD_MIN_Y;
-    int right_x = shot.end_.x;
-    int right_y = shot.end_.y + FIELD_MIN_Y;
+    int left_x = int(shot.start_.x);
+    int left_y = int(shot.start_.y - FIELD_MIN_Y);
+    int right_x = int(shot.end_.x);
+    int right_y = int(shot.end_.y - FIELD_MIN_Y);
     // tauschen, falls die Gerade in die negative x-Richtung zeigt
     if(left_x > right_x)
     {
@@ -56,16 +56,26 @@ void FoosballField::drawShot( Shot const& shot)
         else
             for(int j = left_y; j >= right_y; --j)
                 field_[left_x][j] = 'O';
+        return;
     }
-
+    int prev_j = left_y;
     for(int i = left_x; i <= right_x; ++i)
     {
-        int j = left_y + (right_y - left_y)*delta_y / delta_x;
-        field_[i][j] = 'O';
+        int curr_j = left_y + int(double(i - left_x)*double(delta_y) / double(delta_x));
+        if(prev_j <= curr_j)
+            for(int k = prev_j; k <= curr_j; ++k)
+                field_[i][k] = 'O';
+        else
+            for(int k = prev_j; k >= curr_j; --k)
+                field_[i][k] = 'O';
+        prev_j = curr_j;
     }    
 }
     
 void FoosballField::draw(std::ostream& os)
 {
-
+    for(Shot const& s : shots_)
+        drawShot(s);
+    for(std::string const& row : field_)
+        os << row << '\n';
 }
