@@ -76,7 +76,7 @@ int main()
 			population.push_back(DefensiveStrategy(teams, true));
 		OffensiveStrategy challenge(shots, false);
 		auto winners = evolution(population, nbGenerations, challenge, accuracy, 2);
-		winners[0].stream(std::cout, 1000, accuracy);
+		winners[0].stream(std::cout, 1000, accuracy, shots);
 	}
 	else {
 		std::vector<OffensiveStrategy> population;

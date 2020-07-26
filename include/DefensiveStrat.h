@@ -27,7 +27,8 @@ public:
 	void crossover(DefensiveStrategy const & other);
 	void mutate();
 
-	void stream(std::ostream& os, int intervals, double accuracy);
+	void stream(std::ostream& os, int intervals, double accuracy,
+				std::vector<Shot> const& shots);
 
 	DefensiveData gene_;
 };

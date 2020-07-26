@@ -75,14 +75,15 @@ void DefensiveStrategy::mutate()
 		gene_.movesPerSecond = fetchRand<1, 3>();
 }
 
-void DefensiveStrategy::stream(std::ostream& os, int intervals, double accuracy)
+void DefensiveStrategy::stream(std::ostream& os, int intervals, double accuracy,
+							    std::vector<Shot> const& shots )
 {
 	int pos = 0;
 	for (int i = 0; i < intervals; ++i)
 	{
 		pos = gene_.trans(pos);
         auto& team = gene_.teams[pos];
-		FoosballField field({}, team.getRods());
+		FoosballField field(shots, team.getRods());
 		os << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
 		os << "Accuracy: " << std::fixed << std::setprecision(2) << accuracy * 100 
 		    << " % Velocity: " << gene_.movesPerSecond << " moves/sec\n";
